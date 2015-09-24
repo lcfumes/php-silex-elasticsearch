@@ -1,0 +1,30 @@
+{
+    "name": "fabpot/silex-skeleton",
+    "description": "A pre-configured skeleton for the Silex microframework",
+    "license": "MIT",
+    "type": "project",
+    "repositories": [
+         {
+             "url": "https://github.com/lcfumes/docker-fumes.git",
+             "type": "git"
+         }
+    ],
+
+    "require": {
+        "silex/silex": "~1.3",
+        "elasticsearch/elasticsearch": "~2.0"
+    },
+    "require-dev": {
+        "lcfumes/docker": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+            },
+        "psr-4": {
+            "app\\": "app",
+            "Controllers\\": "Controllers",
+            "Domain\\": "Domain"
+        }
+    }
+}
