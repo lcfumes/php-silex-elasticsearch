@@ -15,7 +15,7 @@ class Application extends SilexApplication {
         parent::__construct();
         $this->registerConfig();
         $this->registerProviders();
-#        $this->mountControllers();
+        $this->mountControllers();
         $this->registerTwig();
     }
 
@@ -29,14 +29,13 @@ class Application extends SilexApplication {
     public function registerProviders()
     {
         $this->register(new \Silex\Provider\ServiceControllerServiceProvider());
-#        $this->register(new \Provider\Service\ControllerProviders());
+        $this->register(new \Provider\Service\ControllerProviders());
         $this->register(new \Silex\Provider\SwiftmailerServiceProvider());
     }
 
     private function mountControllers()
     {
         $this->mount('/', $this["provider.controller.home"]);
-        $this->mount('/contact', $this["provider.controller.contact"]);
     }
 
     private function registerTwig()
