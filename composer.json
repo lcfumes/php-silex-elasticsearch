@@ -19,6 +19,11 @@
     "require-dev": {
         "lcfumes/docker": "dev-master"
     },
+    "extra": {
+       "installer-paths": {
+          "docker/": ["lcfumes/docker"]
+       }
+    },
     "autoload": {
         "psr-0": {
             "": "src/"
@@ -26,7 +31,8 @@
         "psr-4": {
             "app\\": "app",
             "Controllers\\": "Controllers",
-            "Domain\\": "Domain"
+            "Domain\\": "Domain",
+            "Provider\\": "Provider"
         }
     }
 }
