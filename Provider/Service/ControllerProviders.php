@@ -8,7 +8,6 @@ use \Provider\Controller;
 
 class ControllerProviders implements ServiceProviderInterface
 {
-
     public function register(Application $app) {
 
         $app["provider.controller.home"] = $app->share(function() {
