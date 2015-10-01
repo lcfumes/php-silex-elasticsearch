@@ -6,13 +6,7 @@
         "silex/silex": "~1.3",
         "elasticsearch/elasticsearch": "~2.0",
         "symfony/yaml": "~2.6",
-        "twig/twig": "^1.18",
-        "twbs/bootstrap": "^3.3"
-    },
-    "extras": {
-       "installer-paths": {
-          "public/{$name}": ["twbs/bootstrap"]
-       }
+        "twig/twig": "^1.18"
     },
     "autoload": {
         "psr-0": {
