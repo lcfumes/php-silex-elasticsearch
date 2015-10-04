@@ -27,20 +27,33 @@ class CreateIndexCommand extends Command
     {
         $elasticSearchClient = new ElasticSearchClientRepository(new \Domain\Services\ElasticSearchClientService());
 
-        if ($elasticSearchClient->checkIndex()) {
+        $checkIndex = $elasticSearchClient->checkIndex();
+
+        if ($checkIndex) {
             $header_style = new OutputFormatterStyle('white', 'red', array('bold'));
             $output->getFormatter()->setStyle('header', $header_style);
 
             $output->writeln('<header>Indice já existe</header>');
-
-            return;
         }
 
-        $elasticSearchClient->createIndex();
+        if (!$checkIndex) {
+            $elasticSearchClient->createIndex();
+            $header_style = new OutputFormatterStyle('white', 'green', array('bold'));
+            $output->getFormatter()->setStyle('header', $header_style);
 
-        $header_style = new OutputFormatterStyle('white', 'green', array('bold'));
-        $output->getFormatter()->setStyle('header', $header_style);
+            $output->writeln('<header>Indice criado</header>');
 
-        $output->writeln('<header>Indice criado</header>');
+        }
+
+        $clientEntity = new \Domain\Entities\ClientEntity();
+        $clientEntity->setFirstName('Luiz');
+        $clientEntity->setLastName('Fumes');
+        $clientEntity->setEmail('lcfumes@gmail.com');
+        $clientEntity->setAge('33');
+
+        $add = $elasticSearchClient->addDocument($clientEntity);
+
+        var_dump($add);
+
     }
 }

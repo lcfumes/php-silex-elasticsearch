@@ -20,4 +20,9 @@ class ElasticSearchClientRepository
         return $this->service->createIndex();
     }
 
+    public function addDocument(\Domain\Entities\ClientEntity $client)
+    {
+        return $this->service->addDocument($client);
+    }
+
 }
