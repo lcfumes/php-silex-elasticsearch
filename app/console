@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+
+<?php
+
+set_time_limit(0);
+
+date_default_timezone_set('America/Sao_Paulo');
+
+require_once __DIR__ . "/../vendor/autoload.php";
+use Symfony\Component\Console\Application;
+
+$console = new Application();
+
+$console->add(new \Commands\Clients\CreateIndexCommand());
+$console->run();

@@ -2,11 +2,18 @@
     "name": "lcfumes/elasticsearch",
     "license": "MIT",
     "type": "project",
+    "repositories": [
+       {
+          "url": "https://github.com/lcfumes/docker-fumes.git",
+          "type": "git"
+       }
+    ],
     "require": {
         "silex/silex": "~1.3",
         "elasticsearch/elasticsearch": "~2.0",
         "symfony/yaml": "~2.6",
-        "twig/twig": "^1.18"
+        "twig/twig": "^1.18",
+        "symfony/console": "~2.6"
     },
     "require-dev": {
         "lcfumes/docker": "dev-master"
@@ -23,9 +30,9 @@
         "psr-4": {
             "app\\": "app",
             "Controllers\\": "Controllers",
-            "Domain\\": "Domain",
             "Provider\\": "Provider",
-            "Domain\\": "Domain"
+            "Domain\\": "Domain",
+            "Commands\\": "Commands"
         }
     }
 }
