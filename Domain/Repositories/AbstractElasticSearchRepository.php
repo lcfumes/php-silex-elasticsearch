@@ -1,17 +1,17 @@
 <?php
 
-namespace Domain\Services;
+namespace Domain\Repositories;
 
-abstract class ElasticSearchService
+use \Elasticsearch\Client;
+
+abstract class ElasticSearchRepository
 {
 
     protected $index;
 
-    protected $service;
-
     protected $client;
 
-    public function __construct($index, \Elasticsearch\Client $client)
+    public function __construct($index, Client $client)
     {
         if ($index == "") {
             throw new Exception('ElasticSearch Index not declared');
@@ -20,11 +20,6 @@ abstract class ElasticSearchService
         $this->index = $index;
 
         $this->client = $client;
-    }
-
-    public function getService()
-    {
-        return $this->service;
     }
 
     public function getIndex()

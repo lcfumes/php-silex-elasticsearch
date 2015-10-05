@@ -9,15 +9,13 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
-use \Domain\Repositories\ElasticSearchClientRepository;
+use Domain\Repositories\ElasticSearchClientRepository;
+use Domain\Services\ElasticSearchClientService;
 
 class CreateIndexCommand extends Command
 {
     protected function configure()
     {
-        $start = 0;
-        $stop = 100;
-
         $this->setName("clients.createindex")
              ->setDescription("Criar Indice de Clientes no Elasticsearch e tipagem de campos")
              ->setHelp("Create Index Clients");
@@ -25,7 +23,7 @@ class CreateIndexCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $elasticSearchClient = new ElasticSearchClientRepository(new \Domain\Services\ElasticSearchClientService());
+        $elasticSearchClient = new ElasticSearchClientService(new ElasticSearchClientRepository());
 
         $checkIndex = $elasticSearchClient->checkIndex();
 

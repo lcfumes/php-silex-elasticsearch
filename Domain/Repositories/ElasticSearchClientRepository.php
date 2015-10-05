@@ -2,27 +2,79 @@
 
 namespace Domain\Repositories;
 
-class ElasticSearchClientRepository
-{
+use \Elasticsearch\ClientBuilder;
 
-    public function __construct(\Domain\Services\ElasticSearchClientService $service)
+class ElasticSearchClientRepository extends ElasticSearchRepository
+{
+    protected $index = 'clients';
+
+    public function __construct()
     {
-        $this->service = $service;
+        parent::__construct($this->index, ClientBuilder::create()->build());
     }
 
-    public function checkIndex()
+    public function issetIndex()
     {
-        return $this->service->issetIndex();
+        $params = [
+            'index' => $this->index,
+        ];
+        return $this->client->indices()->exists($params);
+
     }
 
     public function createIndex()
     {
-        return $this->service->createIndex();
+        $params = [
+            'index' => $this->index,
+            'body' => [
+                'settings' => [
+                    'number_of_shards' => 1,
+                    'number_of_replicas' => 0
+                ],
+                'mappings' => [
+                    '_default_' => [
+                        '_source' => [
+                            'enabled' => true,
+                            'properties' => [
+                                'first_name' => [
+                                    'type' => 'string',
+                                    'analyzer' => 'standard'
+                                ],
+                                'last_name' => [
+                                    'type' => 'string',
+                                    'analyzer' => 'standard'
+                                ],
+                                'email' => [
+                                    'type' => 'string',
+                                    'analyzer' => 'standard'
+                                ],
+                                'age' => [
+                                    'type' => 'integer'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        return $this->client->indices()->create($params);
     }
 
     public function addDocument(\Domain\Entities\ClientEntity $client)
     {
-        return $this->service->addDocument($client);
-    }
 
+        $params = [
+            'index' => $this->index,
+            'type' => $this->index,
+            'body' => [
+                'first_name' => $client->getFirstName(),
+                'last_name' => $client->getLastName(),
+                'email' => $client->getEmail(),
+                'age' => (int)$client->getAge(),
+            ]
+        ];
+
+        return $this->client->index($params);
+    }
 }
