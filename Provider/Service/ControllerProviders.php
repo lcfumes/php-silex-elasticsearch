@@ -14,6 +14,10 @@ class ControllerProviders implements ServiceProviderInterface
             return new \Controllers\IndexController();
         });
 
+        $app["provider.controller.clients"] = $app->share(function() {
+            return new \Controllers\ClientsController();
+        });
+
     }
 
     public function boot(Application $app) {

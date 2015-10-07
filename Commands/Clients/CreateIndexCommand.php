@@ -12,6 +12,8 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Domain\Repositories\ElasticSearchClientRepository;
 use Domain\Services\ElasticSearchClientService;
 
+use app\Application;
+
 class CreateIndexCommand extends Command
 {
     protected function configure()
@@ -23,7 +25,9 @@ class CreateIndexCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $elasticSearchClient = new ElasticSearchClientService(new ElasticSearchClientRepository());
+        $app = new Application();
+
+        $elasticSearchClient = new ElasticSearchClientService(new ElasticSearchClientRepository($app['config']));
 
         $checkIndex = $elasticSearchClient->checkIndex();
 
@@ -42,16 +46,6 @@ class CreateIndexCommand extends Command
             $output->writeln('<header>Indice criado</header>');
 
         }
-
-        $clientEntity = new \Domain\Entities\ClientEntity();
-        $clientEntity->setFirstName('Luiz');
-        $clientEntity->setLastName('Fumes');
-        $clientEntity->setEmail('lcfumes@gmail.com');
-        $clientEntity->setAge('33');
-
-        $add = $elasticSearchClient->addDocument($clientEntity);
-
-        var_dump($add);
 
     }
 }

@@ -1,0 +1,55 @@
+{% include 'includes/header.html.twig' %}
+
+<div class="container theme-showcase" role="main">
+
+    <div class="jumbotron">
+        <form action="/clients/search" class="form-inline" method="post" id="frm-search-client">
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.first_name, 'First name:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.first_name) }}
+                    {{ form_errors(form.first_name) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.last_name, 'Last name:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.last_name) }}
+                    {{ form_errors(form.last_name) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, 'Email:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.age, 'Age:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.age) }}
+                    {{ form_errors(form.age) }}
+                </div>
+            </div>
+
+            <br /><br />
+            <div class="form-group">
+                <input type="submit" id="user-search" name="user-search" class="btn btn-primary" value="Search" />
+            </div>
+            {{ form_end(form) }}
+        </form>
+    </div>
+
+</div> <!-- /container -->
+
+{% include 'includes/footer.html.twig' %}

@@ -1,0 +1,62 @@
+{% include 'includes/header.html.twig' %}
+
+<div class="container theme-showcase" role="main">
+
+    <div id="msg-error" class="alert alert-danger fade in" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Problem!</strong> There was a problem with network connection. Please try again latter.
+    </div>
+
+    <div id="msg-success" class="alert alert-success fade in" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Success!</strong> The user was registered in the Elasticsearch.
+    </div>
+
+    <div class="jumbotron">
+        <form action="/clients/save" role="form" method="post" id="frm-create-client">
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.first_name, 'First name:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.first_name) }}
+                    {{ form_errors(form.first_name) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.last_name, 'Last name:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.last_name) }}
+                    {{ form_errors(form.last_name) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, 'Email:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.age, 'Age:') }}<br />
+
+                <div class='form-input'>
+                    {{ form_widget(form.age) }}
+                    {{ form_errors(form.age) }}
+                </div>
+            </div>
+
+            <input type="submit" id="user-register" name="user-register" class="btn btn-primary" value="Register" />
+            {{ form_end(form) }}
+        </form>
+    </div>
+
+</div> <!-- /container -->
+
+{% include 'includes/footer.html.twig' %}

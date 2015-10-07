@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Repositories;
+namespace Domain\Services;
 
-use \Domain\Services\ElasticSearchClientRepository;
+use Domain\Repositories\ElasticSearchClientRepository;
 
 class ElasticSearchClientService
 {
@@ -24,9 +24,14 @@ class ElasticSearchClientService
         return $this->repository->createIndex();
     }
 
-    public function addDocument(\Domain\Entities\ClientEntity $client)
+    public function saveClient(\Domain\Entities\ClientEntity $client)
     {
-        return $this->repository->addDocument($client);
+        return $this->repository->saveClient($client);
+    }
+
+    public function searchClient(\Domain\Entities\ClientEntity $client)
+    {
+        return $this->repository->searchClient($client);
     }
 
 }

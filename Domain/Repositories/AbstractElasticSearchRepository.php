@@ -4,7 +4,7 @@ namespace Domain\Repositories;
 
 use \Elasticsearch\Client;
 
-abstract class ElasticSearchRepository
+abstract class AbstractElasticSearchRepository
 {
 
     protected $index;
@@ -31,4 +31,5 @@ abstract class ElasticSearchRepository
     {
         return $this->client;
     }
+
 }

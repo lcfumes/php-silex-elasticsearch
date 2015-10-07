@@ -1,4 +1,5 @@
 <?php
+
 namespace app;
 
 use Silex;
@@ -31,11 +32,15 @@ class Application extends SilexApplication {
         $this->register(new \Silex\Provider\ServiceControllerServiceProvider());
         $this->register(new \Provider\Service\ControllerProviders());
         $this->register(new \Silex\Provider\SwiftmailerServiceProvider());
+        $this->register(new \Silex\Provider\ValidatorServiceProvider());
+        $this->register(new \Silex\Provider\FormServiceProvider());
+        $this->register(new \Silex\Provider\TranslationServiceProvider(), ['translator.messages' => [],]);
     }
 
     private function mountControllers()
     {
         $this->mount('/', $this["provider.controller.home"]);
+        $this->mount('/clients', $this["provider.controller.clients"]);
     }
 
     private function registerTwig()

@@ -4,6 +4,7 @@ namespace Domain\Entities;
 
 class ClientEntity
 {
+    private $id;
 
     private $fistName;
 
@@ -12,6 +13,11 @@ class ClientEntity
     private $email;
 
     private $age;
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function setFirstName($firstName)
     {
@@ -31,6 +37,11 @@ class ClientEntity
     public function setAge($age)
     {
         $this->age = $age;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getFirstName()
