@@ -20,6 +20,9 @@ class CreateIndexCommand extends Command
     {
         $this->setName("clients.createindex")
              ->setDescription("Criar Indice de Clientes no Elasticsearch e tipagem de campos")
+             ->addArgument(
+                 'action', InputArgument::REQUIRED, 'Do you want create or delete an index?'
+              )
              ->setHelp("Create Index Clients");
     }
 
@@ -31,14 +34,16 @@ class CreateIndexCommand extends Command
 
         $checkIndex = $elasticSearchClient->checkIndex();
 
-        if ($checkIndex) {
+        $action = $input->getArgument('action');
+
+        if ($checkIndex && $action == 'create') {
             $header_style = new OutputFormatterStyle('white', 'red', array('bold'));
             $output->getFormatter()->setStyle('header', $header_style);
 
             $output->writeln('<header>Indice já existe</header>');
         }
 
-        if (!$checkIndex) {
+        if (!$checkIndex && $action == 'create') {
             $elasticSearchClient->createIndex();
             $header_style = new OutputFormatterStyle('white', 'green', array('bold'));
             $output->getFormatter()->setStyle('header', $header_style);
