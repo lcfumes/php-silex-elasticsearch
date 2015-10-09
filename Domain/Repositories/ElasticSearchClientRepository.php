@@ -97,6 +97,15 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
         return $this->client->indices()->create($params);
     }
 
+    public function deleteIndex()
+    {
+        $params = [
+            'index' => $this->index,
+        ];
+
+        return $this->client->indices()->delete($params);
+    }
+
     public function saveClient(\Domain\Entities\ClientEntity $client)
     {
 

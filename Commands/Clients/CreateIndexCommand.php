@@ -52,5 +52,21 @@ class CreateIndexCommand extends Command
 
         }
 
+        if (!$checkIndex && $action == 'delete') {
+            $header_style = new OutputFormatterStyle('white', 'red', array('bold'));
+            $output->getFormatter()->setStyle('header', $header_style);
+
+            $output->writeln('<header>Indice não existe</header>');
+        }
+
+        if ($checkIndex && $action == 'delete') {
+            $elasticSearchClient->deleteIndex();
+            $header_style = new OutputFormatterStyle('white', 'green', array('bold'));
+            $output->getFormatter()->setStyle('header', $header_style);
+
+            $output->writeln('<header>Indice deletado</header>');
+
+        }
+
     }
 }

@@ -24,6 +24,11 @@ class ElasticSearchClientService
         return $this->repository->createIndex();
     }
 
+    public function deleteIndex()
+    {
+        return $this->repository->deleteIndex();
+    }
+
     public function saveClient(\Domain\Entities\ClientEntity $client)
     {
         return $this->repository->saveClient($client);
