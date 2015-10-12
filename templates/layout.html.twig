@@ -19,7 +19,6 @@
     <![endif]-->
   </head>
   <body role="document">
-
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -34,11 +33,24 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active">
+            <li class="{% if navigation == '/create' %}active{% endif %}">
               <a href="/create">Create User</a>
             </li>
-            <li><a href="/search">Search User</a></li>
+            <li class="{% if navigation == '/search' %}active{% endif %}">
+              <a href="/search">Search User</a>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+
+   {% block body %}
+
+   {% endblock %}
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/createClient.js"></script>
+    <script src="/js/searchClient.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.js"></script>
+  </body>
+</html>

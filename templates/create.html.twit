@@ -1,4 +1,6 @@
-{% include 'includes/header.html.twig' %}
+{% extends 'layout.html.twig' %}
+
+{% block body %}
 
 <div class="container theme-showcase" role="main">
 
@@ -59,4 +61,4 @@
 
 </div> <!-- /container -->
 
-{% include 'includes/footer.html.twig' %}
+{% endblock body %}

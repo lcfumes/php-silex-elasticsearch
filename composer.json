@@ -20,7 +20,8 @@
         "symfony/twig-bridge": "^2.7",
         "symfony/validator": "^2.7",
         "symfony/config": "^2.7",
-        "symfony/translation": "^2.7"
+        "symfony/translation": "^2.7",
+        "symfony/templating": "~2.0"
     },
     "require-dev": {
         "lcfumes/docker": "dev-master"

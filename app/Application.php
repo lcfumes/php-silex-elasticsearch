@@ -45,16 +45,24 @@ class Application extends SilexApplication {
 
     private function registerTwig()
     {
+
         $this->register(new Silex\Provider\TwigServiceProvider(), [
             "twig.path" => __DIR__.'/../templates/'
         ]);
 
         $this['twig'] = $this->extend('twig', function ($twig, $app) {
+
+            $twig->addGlobal('navigation', $app['request']->getRequestUri());
+
             $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
                 return $app['request_stack']->getMasterRequest()->getBasepath().'/'.ltrim($asset, '/');
             }));
 
             return $twig;
+        });
+
+        $this['templating.loader'] = $this->share(function() {
+            return new FilesystemLoader( __DIR__ . '/../templates/');
         });
     }
 
