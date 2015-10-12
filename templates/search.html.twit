@@ -52,6 +52,22 @@
         </form>
     </div>
 
+    <div id="resultSearch" display="none">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tbody id="result_content_table">
+                <!-- Ajax Generate -->
+            </tbody>
+        </table>
+    </div>
+
 </div> <!-- /container -->
 
 {% endblock body %}
