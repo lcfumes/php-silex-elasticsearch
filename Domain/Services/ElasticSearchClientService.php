@@ -34,9 +34,33 @@ class ElasticSearchClientService
         return $this->repository->saveClient($client);
     }
 
+
+    /**
+     * @var \Domain\Entities\ClientEntity
+     * @return \Domain\Collectors\ClientCollector
+     */
     public function searchClient(\Domain\Entities\ClientEntity $client)
     {
-        return $this->repository->searchClient($client);
+        $result = $this->repository->searchClient($client);
+
+        $clientCollector = new \Domain\Collectors\ClientCollector();
+
+        if ($result['hits']['total'] > 0) {
+            
+            foreach ($result['hits']['hits'] as $client) {
+                $clientEntity = new \Domain\Entities\ClientEntity();
+
+                $clientEntity->setId($client['_id']);
+                $clientEntity->setFirstName($client['_source']['first_name']);
+                $clientEntity->setLastName($client['_source']['last_name']);
+                $clientEntity->setEmail($client['_source']['email']);
+                $clientEntity->setAge($client['_source']['age']);
+
+                $clientCollector->attach($clientEntity);
+            }
+        }
+
+        return $clientCollector;
     }
 
 }

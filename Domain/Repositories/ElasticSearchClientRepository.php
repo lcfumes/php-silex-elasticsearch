@@ -140,8 +140,20 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
 
         $search = null;
 
-        if (!is_null($client->getFirstName())) {
-            $search['first_name'] = $client->getFirstName();
+        if (strlen($client->getFirstName()) > 0) {
+            $search[]['match']['first_name'] = $client->getFirstName();
+        }
+
+        if (strlen($client->getLastName()) > 0) {
+            $search[]['match']['last_name'] = $client->getLastName();
+        }
+
+        if (strlen($client->getEmail()) > 0) {
+            $search[]['match']['email'] = $client->getEmail();
+        }
+
+        if (strlen($client->getAge()) > 0) {
+            $search[]['match']['age'] = $client->getAge();
         }
 
         $params = [
@@ -149,7 +161,9 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
             'type' => $this->type,
             'body' => [
                 'query' => [
-                    'match' => $search
+                    'bool' => [
+                        'must' => $search
+                    ]
                 ]
             ]
         ];
@@ -158,3 +172,4 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
     }
 
 }
+ 

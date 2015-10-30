@@ -6,7 +6,7 @@ class ClientEntity
 {
     private $id;
 
-    private $fistName;
+    private $firstName;
 
     private $lastName;
 
@@ -21,7 +21,7 @@ class ClientEntity
 
     public function setFirstName($firstName)
     {
-        $this->fistName = $firstName;
+        $this->firstName = $firstName;
     }
 
     public function setLastName($lastName)
@@ -46,7 +46,7 @@ class ClientEntity
 
     public function getFirstName()
     {
-        return $this->fistName;
+        return $this->firstName;
     }
 
     public function getLastName()
@@ -62,6 +62,15 @@ class ClientEntity
     public function getAge()
     {
         return $this->age;
+    }
+
+    public function toArray() {
+        return [
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName,
+            'email'     => $this->email,
+            'age'       => $this->age,
+        ];
     }
 
 }

@@ -5,7 +5,7 @@
 <div class="container theme-showcase" role="main">
 
     <div class="jumbotron">
-        <form action="/clients/search" class="form-inline" method="post" id="frm-search-client">
+        <form action="/clients/search" class="form-inline" method="post" id="frm-search-client" onsubmit="return false;">
             {{ form_errors(form) }}
 
             <div class="form-group">
@@ -60,6 +60,7 @@
                 <th>Lastname</th>
                 <th>Email</th>
                 <th>Age</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="result_content_table">

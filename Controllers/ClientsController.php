@@ -96,32 +96,12 @@ class ClientsController implements ControllerProviderInterface
 
             $search = $elasticSearchClient->searchClient($clientEntity);
 
-            print_r($search);
-
         }
 
         return new Response(
-            json_encode(['result' => $search]),
+            json_encode($search->toArray()),
             200,
             ['Content-Type' => 'application/json']
         );
-
-        //    if ($add['created'] == 1) {
-        //         return new Response(
-        //             json_encode(['id' => $add['_id'], 'result' => true]),
-        //             200,
-        //             ['Content-Type' => 'application/json']
-
-        //         );
-        //     }
-
-        // }
-
-        // return new Response(
-        //     json_encode(['result' => false]),
-        //     503,
-        //     ['Content-Type' => 'application/json']
-        // );
-
     }
 }
