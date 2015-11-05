@@ -10,8 +10,12 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
 
     protected $type = 'client';
 
+    protected $config;
+
     public function __construct($config)
     {
+        $this->config = $config;
+
         $hosts = [
             $config['elasticsearch']['host'].':'.$config['elasticsearch']['port'],
         ];
@@ -34,8 +38,8 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
             'index' => $this->index,
             'body' => [
                 'settings' => [
-                    'number_of_shards' => 5,
-                    'number_of_replicas' => 0,
+                    'number_of_shards' => $this->config['elasticsearch']['shards'],
+                    'number_of_replicas' => $this->config['elasticsearch']['replica'],
                     'analysis' => [
                         "filter" => [
                             "ngram" => [
