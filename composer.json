@@ -24,7 +24,7 @@
         "symfony/templating": "~2.0"
     },
     "require-dev": {
-        "lcfumes/docker": "dev-master"
+        "lcfumes/docker": "0.0.1"
     },
     "extra": {
        "installer-paths": {
