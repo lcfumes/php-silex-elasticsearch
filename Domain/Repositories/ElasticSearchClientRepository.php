@@ -3,6 +3,7 @@
 namespace Domain\Repositories;
 
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 
 class ElasticSearchClientRepository extends AbstractElasticSearchRepository
 {
@@ -16,10 +17,25 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
     {
         $this->config = $config;
 
-        $hosts = [
-            $config['elasticsearch']['host'].':'.$config['elasticsearch']['port'],
-        ];
-        parent::__construct($this->index, ClientBuilder::create()->setHosts($hosts) ->build());
+	$connect = false;
+        foreach ($config['elasticsearch-server'] as $host) {
+            if ($connect instanceof \Elasticsearch\Client) {
+                continue;   
+            }
+            $hosts = [
+                $host['host'].":".$host['port']
+            ];
+
+            $connect = ClientBuilder::create()->setHosts($hosts)->build();
+            if (!$connect->transport->getConnection()->ping()) {
+               $connect = false;
+            }
+        }
+
+        if (!$connect) {
+           throw new ServerErrorResponseException('Server not responding');
+        }
+        parent::__construct($this->index, $connect);
     }
 
     public function issetIndex()
@@ -38,8 +54,8 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
             'index' => $this->index,
             'body' => [
                 'settings' => [
-                    'number_of_shards' => $this->config['elasticsearch']['shards'],
-                    'number_of_replicas' => $this->config['elasticsearch']['replica'],
+                    'number_of_shards' => $this->config['elasticsearch-data']['shards'],
+                    'number_of_replicas' => $this->config['elasticsearch-data']['replica'],
                     'analysis' => [
                         "filter" => [
                             "ngram" => [

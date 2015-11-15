@@ -1,0 +1,10 @@
+elasticsearch-server:
+    - host: localhost
+      port: 9200
+    - host: localhost
+      port: 9400
+
+elasticsearch-data:
+    shards: 5
+    replica: 1
+
