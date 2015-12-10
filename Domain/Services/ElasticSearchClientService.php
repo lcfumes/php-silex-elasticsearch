@@ -2,15 +2,26 @@
 
 namespace Domain\Services;
 
+use Domain\Collectors\ClientCollector;
+use Domain\Entities\ClientEntity;
 use Domain\Repositories\ElasticSearchClientRepository;
 
 class ElasticSearchClientService
 {
     private $repository;
 
-    public function __construct(ElasticSearchClientRepository $repository)
+    public function __construct($repository)
     {
+        if (!$repository instanceof ElasticSearchClientRepository) {
+            throw new \InvalidArgumentException('Expected ElasticSearchClientRepository in ElasticsearchClient');
+        }
+
         $this->repository = $repository;
+    }
+
+    public function getRepository()
+    {
+        return $this->repository;
     }
 
     public function checkIndex()
@@ -28,8 +39,12 @@ class ElasticSearchClientService
         return $this->repository->deleteIndex();
     }
 
-    public function saveClient(\Domain\Entities\ClientEntity $client)
+    public function saveClient($client)
     {
+        if (!$client instanceof ClientEntity) {
+            throw new \InvalidArgumentException('Expected ClientEntity in saveClient');
+        }
+
         return $this->repository->saveClient($client);
     }
 
@@ -38,24 +53,30 @@ class ElasticSearchClientService
      *
      * @return \Domain\Collectors\ClientCollector
      */
-    public function searchClient(\Domain\Entities\ClientEntity $client)
+    public function searchClient($client)
     {
+        if (!$client instanceof ClientEntity) {
+            throw new \InvalidArgumentException('Expected ClientEntity in saveClient');
+        }
+
         $result = $this->repository->searchClient($client);
 
-        $clientCollector = new \Domain\Collectors\ClientCollector();
+        $clientCollector = new ClientCollector();
 
-        if ($result['hits']['total'] > 0) {
-            foreach ($result['hits']['hits'] as $client) {
-                $clientEntity = new \Domain\Entities\ClientEntity();
+        if ($result['hits']['total'] === 0) {
+            return $clientCollector;
+        }
 
-                $clientEntity->setId($client['_id']);
-                $clientEntity->setFirstName($client['_source']['first_name']);
-                $clientEntity->setLastName($client['_source']['last_name']);
-                $clientEntity->setEmail($client['_source']['email']);
-                $clientEntity->setAge($client['_source']['age']);
+        foreach ($result['hits']['hits'] as $client) {
+            $clientEntity = new ClientEntity();
 
-                $clientCollector->add($clientEntity);
-            }
+            $clientEntity->setId($client['_id']);
+            $clientEntity->setFirstName($client['_source']['first_name']);
+            $clientEntity->setLastName($client['_source']['last_name']);
+            $clientEntity->setEmail($client['_source']['email']);
+            $clientEntity->setAge($client['_source']['age']);
+
+            $clientCollector->add($clientEntity);
         }
 
         return $clientCollector;
