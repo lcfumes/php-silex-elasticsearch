@@ -3,11 +3,8 @@
 namespace Controllers;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Silex\ControllerProviderInterface;
-
 use Domain\Repositories\ElasticSearchClientRepository;
 use Domain\Services\ElasticSearchClientService;
 
@@ -33,7 +30,7 @@ class IndexController implements ControllerProviderInterface
         return $controller;
     }
 
-    public function indexAction(Application $app, Request $request)
+    public function indexAction(Application $app)
     {
 
         $elasticSearchClient = new \Domain\Services\ElasticSearchClientService(new \Domain\Repositories\ElasticSearchClientRepository($app['config']));
@@ -41,7 +38,7 @@ class IndexController implements ControllerProviderInterface
         return new Response($app['twig']->render('index.html.twig', array()));
     }
 
-    public function createAction(Request $request, Application $app)
+    public function createAction(Application $app)
     {
         $formCreate = new \Provider\Form\CreateClientFormProvider($app);
 
@@ -51,7 +48,7 @@ class IndexController implements ControllerProviderInterface
 
     }
 
-    public function searchAction(Request $request, Application $app)
+    public function searchAction(Application $app)
     {
         $formSearch = new \Provider\Form\SearchClientFormProvider($app);
 
