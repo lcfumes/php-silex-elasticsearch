@@ -6,7 +6,6 @@ use Domain\Repositories\ElasticSearchClientRepository;
 
 class ElasticSearchClientService
 {
-
     private $repository;
 
     public function __construct(ElasticSearchClientRepository $repository)
@@ -34,9 +33,9 @@ class ElasticSearchClientService
         return $this->repository->saveClient($client);
     }
 
-
     /**
      * @var \Domain\Entities\ClientEntity
+     *
      * @return \Domain\Collectors\ClientCollector
      */
     public function searchClient(\Domain\Entities\ClientEntity $client)
@@ -46,7 +45,6 @@ class ElasticSearchClientService
         $clientCollector = new \Domain\Collectors\ClientCollector();
 
         if ($result['hits']['total'] > 0) {
-            
             foreach ($result['hits']['hits'] as $client) {
                 $clientEntity = new \Domain\Entities\ClientEntity();
 
@@ -62,5 +60,4 @@ class ElasticSearchClientService
 
         return $clientCollector;
     }
-
 }

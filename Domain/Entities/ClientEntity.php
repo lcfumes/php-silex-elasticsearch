@@ -64,13 +64,14 @@ class ClientEntity
         return $this->age;
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         return [
+            'id' => $this->id,
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
-            'email'     => $this->email,
-            'age'       => $this->age,
+            'email' => $this->email,
+            'age' => $this->age,
         ];
     }
-
 }

@@ -24,7 +24,9 @@
         "symfony/templating": "~2.0"
     },
     "require-dev": {
-        "lcfumes/docker": "0.0.1"
+        "lcfumes/docker": "0.0.1",
+        "phpunit/phpunit": "@stable",
+        "fabpot/php-cs-fixer": "@stable"
     },
     "extra": {
        "installer-paths": {

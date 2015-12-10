@@ -17,23 +17,23 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
     {
         $this->config = $config;
 
-	$connect = false;
+        $connect = false;
         foreach ($config['elasticsearch-server'] as $host) {
             if ($connect instanceof \Elasticsearch\Client) {
-                continue;   
+                continue;
             }
             $hosts = [
-                $host['host'].":".$host['port']
+                $host['host'].':'.$host['port'],
             ];
 
             $connect = ClientBuilder::create()->setHosts($hosts)->build();
             if (!$connect->transport->getConnection()->ping()) {
-               $connect = false;
+                $connect = false;
             }
         }
 
         if (!$connect) {
-           throw new ServerErrorResponseException('Server not responding');
+            throw new ServerErrorResponseException('Server not responding');
         }
         parent::__construct($this->index, $connect);
     }
@@ -45,7 +45,6 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
         ];
 
         return $this->client->indices()->exists($params);
-
     }
 
     public function createIndex()
@@ -57,37 +56,37 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
                     'number_of_shards' => $this->config['elasticsearch-data']['shards'],
                     'number_of_replicas' => $this->config['elasticsearch-data']['replica'],
                     'analysis' => [
-                        "filter" => [
-                            "ngram" => [
-                                "type" => "ngram",
-                                "min_gram" => 3,
-                                "max_gram" => 3
+                        'filter' => [
+                            'ngram' => [
+                                'type' => 'ngram',
+                                'min_gram' => 3,
+                                'max_gram' => 3,
                             ],
-                            "brazilian_stop" => [
-                              "type" => "stop",
-                              "stopwords" => "_brazilian_" 
+                            'brazilian_stop' => [
+                              'type' => 'stop',
+                              'stopwords' => '_brazilian_',
                             ],
-                            "brazilian_keywords" => [
-                              "type" => "keyword_marker",
-                              "keywords" => ['de', 'a', 'e', 'da']
+                            'brazilian_keywords' => [
+                              'type' => 'keyword_marker',
+                              'keywords' => ['de', 'a', 'e', 'da'],
                             ],
-                            "brazilian_stemmer" => [
-                              "type" => "stemmer",
-                              "language" => "brazilian"
-                            ]
+                            'brazilian_stemmer' => [
+                              'type' => 'stemmer',
+                              'language' => 'brazilian',
+                            ],
                         ],
-                        "analyzer" => [
-                            "lcfumes" => [
-                                "tokenizer" =>  "standard",
-                                "filter" => [
-                                    "lowercase",
-                                    "brazilian_stop",
-                                    "brazilian_keywords",
-                                    "brazilian_stemmer",
-                                    "ngram"
-                                ]
-                            ]
-                        ]
+                        'analyzer' => [
+                            'lcfumes' => [
+                                'tokenizer' => 'standard',
+                                'filter' => [
+                                    'lowercase',
+                                    'brazilian_stop',
+                                    'brazilian_keywords',
+                                    'brazilian_stemmer',
+                                    'ngram',
+                                ],
+                            ],
+                        ],
                     ],
                 ],
                 'mappings' => [
@@ -95,23 +94,23 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
                         'properties' => [
                             'first_name' => [
                                 'type' => 'string',
-                                "analyzer" => "lcfumes"
+                                'analyzer' => 'lcfumes',
                             ],
                             'last_name' => [
                                 'type' => 'string',
-                                "analyzer" => "lcfumes"
+                                'analyzer' => 'lcfumes',
                             ],
                             'email' => [
                                 'type' => 'string',
-                                "analyzer" => "lcfumes"
+                                'analyzer' => 'lcfumes',
                             ],
                             'age' => [
-                                'type' => 'integer'
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                'type' => 'integer',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         return $this->client->indices()->create($params);
@@ -128,7 +127,6 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
 
     public function saveClient(\Domain\Entities\ClientEntity $client)
     {
-
         if (!$this->issetIndex()) {
             $this->createIndex();
         }
@@ -140,8 +138,8 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
                 'first_name' => $client->getFirstName(),
                 'last_name' => $client->getLastName(),
                 'email' => $client->getEmail(),
-                'age' => (int)$client->getAge(),
-            ]
+                'age' => (int) $client->getAge(),
+            ],
         ];
 
         if (!is_null($client->getId())) {
@@ -153,7 +151,6 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
 
     public function searchClient(\Domain\Entities\ClientEntity $client)
     {
-
         if (!$this->issetIndex()) {
             return [];
         }
@@ -182,14 +179,12 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
             'body' => [
                 'query' => [
                     'bool' => [
-                        'must' => $search
-                    ]
-                ]
-            ]
+                        'must' => $search,
+                    ],
+                ],
+            ],
         ];
 
         return $this->client->search($params);
     }
-
 }
- 

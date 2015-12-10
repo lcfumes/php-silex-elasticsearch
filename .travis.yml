@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+  - hhvm
+
+install:
+  - composer self-update
+  - composer install --no-interaction --prefer-source
+
+script:
+  - vendor/bin/php-cs-fixer fix -v --dry-run Domain/
+  - vendor/bin/phpunit -c phpunit.xml.dist --colors --coverage-clover=build/logs/clover.xml
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml

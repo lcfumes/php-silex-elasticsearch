@@ -2,18 +2,17 @@
 
 namespace Domain\Repositories;
 
-use \Elasticsearch\Client;
+use Elasticsearch\Client;
 
 abstract class AbstractElasticSearchRepository
 {
-
     protected $index;
 
     protected $client;
 
     public function __construct($index, Client $client)
     {
-        if ($index == "") {
+        if ($index == '') {
             throw new Exception('ElasticSearch Index not declared');
         }
 
@@ -31,5 +30,4 @@ abstract class AbstractElasticSearchRepository
     {
         return $this->client;
     }
-
 }
