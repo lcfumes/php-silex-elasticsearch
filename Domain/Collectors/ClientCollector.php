@@ -9,7 +9,7 @@ class ClientCollector extends \SplObjectStorage
         if (!$clientEntity instanceof \Domain\Entities\ClientEntity) {
             throw new \InvalidArgumentException('Invalid Argument to ClientCollector');
         }
-        parent::attach($clientEntity);
+        $this->attach($clientEntity);
     }
 
     public function toArray()
