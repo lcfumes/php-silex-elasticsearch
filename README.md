@@ -1,3 +1,10 @@
+[![Build Status](https://travis-ci.org/lcfumes/php-silex-elasticsearch.svg)](https://travis-ci.org/lcfumes/php-silex-elasticsearch)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lcfumes/php-silex-elasticsearch/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lcfumes/php-silex-elasticsearch/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/lcfumes/php-silex-elasticsearch/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lcfumes/php-silex-elasticsearch/?branch=master)
+
+## Instalation
+
+
 # php-silex-elasticsearch
 Silex with Elasticsearch
 
