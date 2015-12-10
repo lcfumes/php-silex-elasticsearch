@@ -13,7 +13,7 @@ class ClientCollectorTest extends \PHPUnit_Framework_TestCase
     public function testAttachClientWhenParameterIsntClientEntity()
     {
         $collector = new ClientCollector();
-        $collector->attach([]);
+        $collector->add([]);
     }
 
     /**
@@ -30,7 +30,7 @@ class ClientCollectorTest extends \PHPUnit_Framework_TestCase
         $client->setEmail("lcfumes@gmail.com");
         $client->setAge('1');
 
-        $collector->attach($client);
+        $collector->add($client);
     }
 
     /**
@@ -48,7 +48,7 @@ class ClientCollectorTest extends \PHPUnit_Framework_TestCase
         $client->setEmail("lcfumes@gmail.com");
         $client->setAge('1');
 
-        $collector->attach($client);
+        $collector->add($client);
 
         $expected[] = [
             'id'              => '1234',

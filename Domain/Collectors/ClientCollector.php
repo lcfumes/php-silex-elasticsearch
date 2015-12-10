@@ -4,7 +4,7 @@ namespace Domain\Collectors;
 
 class ClientCollector extends \SplObjectStorage
 {
-    public function attach($clientEntity)
+    public function add($clientEntity)
     {
         if (!$clientEntity instanceof \Domain\Entities\ClientEntity) {
             throw new \InvalidArgumentException('Invalid Argument to ClientCollector');

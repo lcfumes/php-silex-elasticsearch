@@ -54,7 +54,7 @@ class ElasticSearchClientService
                 $clientEntity->setEmail($client['_source']['email']);
                 $clientEntity->setAge($client['_source']['age']);
 
-                $clientCollector->attach($clientEntity);
+                $clientCollector->add($clientEntity);
             }
         }
 

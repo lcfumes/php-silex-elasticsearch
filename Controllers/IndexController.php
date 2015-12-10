@@ -32,9 +32,6 @@ class IndexController implements ControllerProviderInterface
 
     public function indexAction(Application $app)
     {
-
-        $elasticSearchClient = new \Domain\Services\ElasticSearchClientService(new \Domain\Repositories\ElasticSearchClientRepository($app['config']));
-
         return new Response($app['twig']->render('index.html.twig', array()));
     }
 
