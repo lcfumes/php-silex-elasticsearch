@@ -88,3 +88,5 @@ http://elasticsearch.dev.io:9200/_plugin/head
 
 http://elasticsearch.dev.io:9200/_plugin/HQ
 ```
+
+Contact: Luiz Fumes <lcfumes@gmail.com>
