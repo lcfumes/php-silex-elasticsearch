@@ -13,7 +13,7 @@ use Domain\Entities\ClientEntity;
 class ClientsController implements ControllerProviderInterface
 {
 
-	public function connect(Application $app)
+    public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
 
@@ -55,7 +55,7 @@ class ClientsController implements ControllerProviderInterface
                         200,
                         ['Content-Type' => 'application/json']
 
-    	            );
+                    );
                 }
 
             }

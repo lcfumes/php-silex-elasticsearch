@@ -10,7 +10,7 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException               InvalidArgumentException
      * @expectedExceptionMessage  Expected ElasticSearchClientRepository in ElasticsearchClient
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
      */
     public function testConstructObjectWithoutRepository()
     {
@@ -19,8 +19,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::getRepository
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::getRepository
      */
     public function testConstructObjectWIthRepository()
     {
@@ -33,8 +33,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::checkIndex
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::checkIndex
      */
     public function testCheckIndex()
     {
@@ -52,8 +52,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::createIndex
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::createIndex
      */
     public function testCreateIndex()
     {
@@ -71,8 +71,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::deleteIndex
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::deleteIndex
      */
     public function testDeleteIndex()
     {
@@ -92,8 +92,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException               InvalidArgumentException
      * @expectedExceptionMessage  Expected ClientEntity in saveClient
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::saveClient
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::saveClient
      */
     public function testSaveClientWhenParameterIsntInstanceOfClient()
     {
@@ -106,8 +106,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     }
 
      /**
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::saveClient
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::saveClient
      */
     public function testSaveIndexWhemParameterIsInstanceOfClient()
     {
@@ -135,8 +135,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException               InvalidArgumentException
      * @expectedExceptionMessage  Expected ClientEntity in saveClient
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::searchClient
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::searchClient
      */
     public function testSearchClientWhenParameterIsntInstanceOfClientEntity()
     {
@@ -151,8 +151,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::searchClient
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::searchClient
      */
     public function testSearchClientWhenParameterIsInstanceOfClientEntity()
     {
@@ -193,8 +193,8 @@ class ElasticSearchClientServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::__construct
-     * @cover \Domain\Repositories\ElasticSearchClientRepository::searchClient
+     * @cover \Domain\Services\ElasticSearchClientService::__construct
+     * @cover \Domain\Services\ElasticSearchClientService::searchClient
      */
     public function testSearchClientWhenDontFindClient()
     {

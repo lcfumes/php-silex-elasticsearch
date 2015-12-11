@@ -15,6 +15,10 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
 
     public function __construct($config)
     {
+        if (!is_array($config) || count($config) === 0) {
+            throw new \InvalidArgumentException('Invalid Config to Repository');
+        }
+
         $this->config = $config;
 
         $connect = false;
@@ -25,7 +29,6 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
             $hosts = [
                 $host['host'].':'.$host['port'],
             ];
-
             $connect = ClientBuilder::create()->setHosts($hosts)->build();
             if (!$connect->transport->getConnection()->ping()) {
                 $connect = false;
@@ -36,6 +39,13 @@ class ElasticSearchClientRepository extends AbstractElasticSearchRepository
             throw new ServerErrorResponseException('Server not responding');
         }
         parent::__construct($this->index, $connect);
+    }
+
+    public function setIndex($index) {
+        if ($index === "") {
+            throw new \InvalidArgumentException("Index undefined");
+        }
+        $this->index = $index;
     }
 
     public function issetIndex()
